@@ -4,6 +4,7 @@ import UserModel from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import { UserDto } from '../dto/userDto.js'
 import { generateTokens, saveToken } from './tokens.js'
+import MailService from './mail.service.js'
 
 export async function registrationService(email, password) {
   const candidate = await UserModel.findOne({ email })
@@ -13,13 +14,18 @@ export async function registrationService(email, password) {
     )
   }
   const hashPassword = await bcrypt.hash(password, 6)
-  const activateLink = v4()
+  const activationLink = v4()
 
   const user = await UserModel.create({
     email,
     password: hashPassword,
-    activateLink
+    activationLink
   })
+
+  await MailService.sendActivationMail(
+    email,
+    `${process.env.API_URL}/api/activate/${activationLink}`
+  )
 
   const userDto = new UserDto(user)
   const tokens = generateTokens({ ...userDto })
