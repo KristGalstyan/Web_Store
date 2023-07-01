@@ -36,3 +36,26 @@ export async function registrationService(email, password) {
     user: userDto
   }
 }
+
+export async function loginService(email, password) {
+  const user = await UserModel.findOne({ email })
+
+  if (!user) {
+    throw ApiError.BadRequest('Не Верный логин или пароль')
+  }
+
+  const isPassEquals = await bcrypt.compare(password, user.password)
+
+  if (!isPassEquals) {
+    throw ApiError.BadRequest('Не Верный логин или пароль')
+  }
+
+  const userDto = new UserDto(user)
+  const tokens = generateTokens({ ...userDto })
+  await saveToken(userDto.id, tokens.refreshToken)
+
+  return {
+    ...tokens,
+    user: userDto
+  }
+}
