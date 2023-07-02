@@ -64,3 +64,12 @@ export async function logout(refreshToken) {
   const token = removeToken(refreshToken)
   return token
 }
+
+export async function activateService(activationLink) {
+  const user = await UserModel.findOne({ activationLink })
+  if (!user) {
+    throw ApiError.BadRequest('Неккоректная ссылка активации')
+  }
+  user.isActivated = true
+  await user.save()
+}

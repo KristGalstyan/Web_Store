@@ -1,6 +1,10 @@
 import { validationResult } from 'express-validator'
 import ApiError from '../ErrorValidation/ApiError.js'
-import { loginService, registrationService } from '../services/user.service.js'
+import {
+  loginService,
+  registrationService,
+  activateService
+} from '../services/user.service.js'
 import { removeToken } from '../services/tokens.js'
 
 export async function register(req, res, next) {
@@ -45,7 +49,7 @@ export async function login(req, res, next) {
   }
 }
 
-export async function logoutr(req, res, next) {
+export async function logout(req, res, next) {
   try {
     const { refreshToken } = req.cookies
     const token = await removeToken(refreshToken)
@@ -53,5 +57,15 @@ export async function logoutr(req, res, next) {
     res.status(200).json(token)
   } catch (e) {
     next(e)
+  }
+}
+
+export async function activate(req, res, next) {
+  try {
+    const activateLink = req.params.link
+    await activateService(activateLink)
+    return res.redirect(process.env.CLIENT_URL)
+  } catch (e) {
+    res.status(500).json({ message: 'Не активный ссылка' })
   }
 }
