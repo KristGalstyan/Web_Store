@@ -25,3 +25,8 @@ export async function saveToken(userId, refreshToken) {
   const token = await TokenModel.create({ user: userId, refreshToken })
   return token
 }
+
+export async function removeToken(refreshToken) {
+  const tokenData = await TokenModel.deleteOne({ refreshToken })
+  return tokenData
+}

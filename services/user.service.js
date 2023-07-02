@@ -3,7 +3,7 @@ import ApiError from '../ErrorValidation/ApiError.js'
 import UserModel from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import { UserDto } from '../dto/userDto.js'
-import { generateTokens, saveToken } from './tokens.js'
+import { generateTokens, removeToken, saveToken } from './tokens.js'
 import MailService from './mail.service.js'
 
 export async function registrationService(email, password) {
@@ -41,13 +41,13 @@ export async function loginService(email, password) {
   const user = await UserModel.findOne({ email })
 
   if (!user) {
-    throw ApiError.BadRequest('Не Верный логин или пароль')
+    throw ApiError.BadRequest('Неправильный логин или пароль')
   }
 
   const isPassEquals = await bcrypt.compare(password, user.password)
 
   if (!isPassEquals) {
-    throw ApiError.BadRequest('Не Верный логин или пароль')
+    throw ApiError.BadRequest('Неправильный логин или пароль')
   }
 
   const userDto = new UserDto(user)
@@ -58,4 +58,9 @@ export async function loginService(email, password) {
     ...tokens,
     user: userDto
   }
+}
+
+export async function logout(refreshToken) {
+  const token = removeToken(refreshToken)
+  return token
 }

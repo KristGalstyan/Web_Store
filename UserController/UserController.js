@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator'
 import ApiError from '../ErrorValidation/ApiError.js'
 import { loginService, registrationService } from '../services/user.service.js'
+import { removeToken } from '../services/tokens.js'
 
 export async function register(req, res, next) {
   try {
@@ -26,7 +27,9 @@ export async function login(req, res, next) {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
+      return next(
+        ApiError.BadRequest('Неправильный логин или пароль', errors.array())
+      )
     }
     const { email, password } = req.body
 
@@ -37,6 +40,17 @@ export async function login(req, res, next) {
     })
 
     return res.json(userData)
+  } catch (e) {
+    next(e)
+  }
+}
+
+export async function logoutr(req, res, next) {
+  try {
+    const { refreshToken } = req.cookies
+    const token = await removeToken(refreshToken)
+    res.clearCookie('refreshToken')
+    res.status(200).json(token)
   } catch (e) {
     next(e)
   }
