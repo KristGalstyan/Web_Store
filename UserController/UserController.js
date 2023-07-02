@@ -3,7 +3,8 @@ import ApiError from '../ErrorValidation/ApiError.js'
 import {
   loginService,
   registrationService,
-  activateService
+  activateService,
+  refreshService
 } from '../services/user.service.js'
 import { removeToken } from '../services/tokens.js'
 
@@ -66,6 +67,17 @@ export async function activate(req, res, next) {
     await activateService(activateLink)
     return res.redirect(process.env.CLIENT_URL)
   } catch (e) {
-    res.status(500).json({ message: 'Не активный ссылка' })
+    next(ApiError.BadRequest('Не активный ссылка'))
   }
+}
+
+export async function refresh(req, res, next) {
+  try {
+    const { refreshToken } = res.cookies
+    const userData = await refreshService(refreshToken)
+    res.cookie('refreshToken', userData.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    })
+    return res.json(userData)
+  } catch (e) {}
 }

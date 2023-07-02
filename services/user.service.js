@@ -3,7 +3,12 @@ import ApiError from '../ErrorValidation/ApiError.js'
 import UserModel from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import { UserDto } from '../dto/userDto.js'
-import { generateTokens, removeToken, saveToken } from './tokens.js'
+import {
+  generateTokens,
+  removeToken,
+  saveToken,
+  validateRefreshToken
+} from './tokens.js'
 import MailService from './mail.service.js'
 
 export async function registrationService(email, password) {
@@ -72,4 +77,26 @@ export async function activateService(activationLink) {
   }
   user.isActivated = true
   await user.save()
+}
+
+export async function refreshService(refreshToken) {
+  if (!refreshToken) {
+    throw ApiError.UnauthorizedError()
+  }
+  const userData = validateRefreshToken(refreshToken)
+  const tokenFromDb = await findToken(refreshToken)
+
+  if (!userData || !tokenFromDb) {
+    throw ApiError.UnauthorizedError()
+  }
+
+  const user = await UserModel.findById(userData.id)
+  const userDto = new UserDto(user)
+  const tokens = generateTokens({ ...userDto })
+  await saveToken(userDto.id, tokens.refreshToken)
+
+  return {
+    ...tokens,
+    user: userDto
+  }
 }

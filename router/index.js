@@ -4,7 +4,8 @@ import {
   register,
   login,
   logout,
-  activate
+  activate,
+  refresh
 } from '../UserController/UserController.js'
 
 const router = new Router()
@@ -13,6 +14,7 @@ router.post('/registration', registerValidator, register)
 router.post('/login', registerValidator, login)
 router.post('/logout', logout)
 
-router.post('/activate/:link', activate)
+router.get('/activate/:link', activate)
+router.get('/refresh', refresh)
 
 export default router
