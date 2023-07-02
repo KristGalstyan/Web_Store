@@ -73,11 +73,13 @@ export async function activate(req, res, next) {
 
 export async function refresh(req, res, next) {
   try {
-    const { refreshToken } = res.cookies
+    const { refreshToken } = req.cookies
     const userData = await refreshService(refreshToken)
     res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000
     })
     return res.json(userData)
-  } catch (e) {}
+  } catch (e) {
+    next(e)
+  }
 }
