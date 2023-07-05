@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Header() {
   return (
-    <div className="d-flex flex-wrap justify-content-between align-items-center  my-5">
+    <div className="d-flex flex-wrap justify-content-between align-items-center  mb-5">
       <div className="img-fluid d-flex flex-wrap justify-content-center align-items-center">
-        <img src="/icons8-store-66.png" alt="Shop icon" />
+        <img src="img/icons8-store-66.png" alt="Shop icon" />
         <h1 className="text-primary font-italic">Store</h1>
       </div>
 
