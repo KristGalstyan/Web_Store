@@ -14,6 +14,7 @@ export const BlockForProduct = styled.div`
   flex-wrap: wrap;
   background-color: #f5fbfc;
   margin-top: 190px;
+  width: 100%;
 `
 
 export const FirstBlock = styled.div`

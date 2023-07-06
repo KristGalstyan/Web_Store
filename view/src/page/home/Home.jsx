@@ -1,6 +1,10 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FirstBlock, UniqueWord, WrapperHeader } from './home'
+import FreshProducts from '../products/FreshProducts'
+import About from '../about/About.jsx'
+import Menu from '../menu/Menu.jsx'
+import Intro from '../Intro/Intro.jsx'
 
 function Home() {
   return (
@@ -40,6 +44,10 @@ function Home() {
       <div>
         <img className="img-fluid" src="img/home.png" alt="Home" />
       </div>
+      <FreshProducts />
+      <About />
+      <Menu />
+      <Intro />
     </WrapperHeader>
   )
 }

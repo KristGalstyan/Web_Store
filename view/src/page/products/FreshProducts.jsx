@@ -1,5 +1,5 @@
 import React from 'react'
-import { BlockForProduct, FirstBlock, WrapperHeader } from '../home/home'
+import { BlockForProduct, FirstBlock } from '../home/home'
 
 function FreshProducts() {
   return (
@@ -9,7 +9,7 @@ function FreshProducts() {
           style={{
             fontWeight: '400',
             fontFamily: 'inter',
-            fontSize: '90px'
+            fontSize: '130px'
           }}
         >
           The home of <br />

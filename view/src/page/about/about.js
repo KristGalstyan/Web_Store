@@ -7,13 +7,15 @@ export const AboutBlock = styled.div`
 `
 
 export const AboutSection = styled.div`
-  text-align: center;
-  margin-top: 90px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h3 {
     color: #35b8be;
     font-size: 50px;
     font-weight: 400;
-    margin-bottom: 90px;
+    margin-bottom: 40px;
   }
 `
 export const WrapperAbout = styled.div`
