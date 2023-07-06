@@ -11,7 +11,7 @@ import {
 } from './tokens.js'
 import MailService from './mail.service.js'
 
-export async function registrationService(email, password) {
+export async function registrationService(email, password, name) {
   const candidate = await UserModel.findOne({ email })
   if (candidate) {
     throw ApiError.BadRequest(
@@ -22,6 +22,7 @@ export async function registrationService(email, password) {
   const activationLink = v4()
 
   const user = await UserModel.create({
+    name,
     email,
     password: hashPassword,
     activationLink
