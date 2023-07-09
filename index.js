@@ -3,12 +3,21 @@ import router from './router/index.js'
 import cookieParser from 'cookie-parser'
 import 'dotenv/config'
 
+import cors from 'cors'
+
 import mongoose from 'mongoose'
 import { errorMiddleware } from './ErrorValidation/errormiddleware.js'
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+  })
+)
 
 mongoose
   .connect(process.env.DATA_BASE, {

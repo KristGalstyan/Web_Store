@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BuyProduct,
   FullMenu,
@@ -21,6 +21,8 @@ import {
 } from './menu'
 
 const Menu = () => {
+  const [active, setActive] = useState(0)
+
   return (
     <MenuWrapper>
       <MenuFirstBlock>
@@ -32,89 +34,35 @@ const Menu = () => {
         </MenuFirstsubTitle>
       </MenuFirstBlock>
       <MenuSecondBlock>
-        <MenuBtnBlock>
-          <MenuBtn>Burgers</MenuBtn>
-          <MenuBtn>Sides</MenuBtn>
-          <MenuBtn>Drinks</MenuBtn>
-        </MenuBtnBlock>
-        <MenuItem>
-          <MenuItemProduct>
-            <ProductImg>
-              <img src="/img/products/burger.png" alt="burger" />
-            </ProductImg>
-            <ProductInfo>
-              <ProductInfoItem>
-                <ProductTitle>Burger Dreams</ProductTitle>
-                <ProductParagraph>$ 9.20$</ProductParagraph>
-              </ProductInfoItem>
-              <ProductParagraph>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </ProductParagraph>
-              <BuyProduct>
-                <ProductTotal>1</ProductTotal>
-                <MenuBtn>Add to cart</MenuBtn>
-              </BuyProduct>
-            </ProductInfo>
-          </MenuItemProduct>
-          <MenuItemProduct>
-            <ProductImg>
-              <img src="/img/products/burger.png" alt="burger" />
-            </ProductImg>
-            <ProductInfo>
-              <ProductInfoItem>
-                <ProductTitle>Burger Dreams</ProductTitle>
-                <ProductParagraph>$ 9.20$</ProductParagraph>
-              </ProductInfoItem>
-              <ProductParagraph>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </ProductParagraph>
-              <BuyProduct>
-                <ProductTotal>1</ProductTotal>
-                <MenuBtn>Add to cart</MenuBtn>
-              </BuyProduct>
-            </ProductInfo>
-          </MenuItemProduct>
-          <MenuItemProduct>
-            <ProductImg>
-              <img src="/img/products/burger.png" alt="burger" />
-            </ProductImg>
-            <ProductInfo>
-              <ProductInfoItem>
-                <ProductTitle>Burger Dreams</ProductTitle>
-                <ProductParagraph>$ 9.20$</ProductParagraph>
-              </ProductInfoItem>
-              <ProductParagraph>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </ProductParagraph>
-              <BuyProduct>
-                <ProductTotal>1</ProductTotal>
-                <MenuBtn>Add to cart</MenuBtn>
-              </BuyProduct>
-            </ProductInfo>
-          </MenuItemProduct>
-          <MenuItemProduct>
-            <ProductImg>
-              <img src="/img/products/burger.png" alt="burger" />
-            </ProductImg>
-            <ProductInfo>
-              <ProductInfoItem>
-                <ProductTitle>Burger Dreams</ProductTitle>
-                <ProductParagraph>$ 9.20$</ProductParagraph>
-              </ProductInfoItem>
-              <ProductParagraph>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </ProductParagraph>
-              <BuyProduct>
-                <ProductTotal>1</ProductTotal>
-                <MenuBtn>Add to cart</MenuBtn>
-              </BuyProduct>
-            </ProductInfo>
-          </MenuItemProduct>
-        </MenuItem>
+        {product.map((elem, index) => {
+          return (
+            <>
+              <MenuBtnBlock key={elem.id}>
+                <MenuBtn>Burgers</MenuBtn>
+                <MenuBtn>Sides</MenuBtn>
+                <MenuBtn>Drinks</MenuBtn>
+              </MenuBtnBlock>
+              <MenuItem>
+                <MenuItemProduct>
+                  <ProductImg>
+                    <img src={elem.url} alt={elem.title} />
+                  </ProductImg>
+                  <ProductInfo>
+                    <ProductInfoItem>
+                      <ProductTitle>{elem.title}</ProductTitle>
+                      <ProductParagraph>$ 9.20$</ProductParagraph>
+                    </ProductInfoItem>
+                    <ProductParagraph>{elem.text}</ProductParagraph>
+                    <BuyProduct>
+                      <ProductTotal>1</ProductTotal>
+                      <MenuBtn>Add to cart</MenuBtn>
+                    </BuyProduct>
+                  </ProductInfo>
+                </MenuItemProduct>
+              </MenuItem>
+            </>
+          )
+        })}
       </MenuSecondBlock>
       <FullMenu>
         <MenuBtn>See Full Menu</MenuBtn>

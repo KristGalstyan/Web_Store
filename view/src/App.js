@@ -1,11 +1,20 @@
+import { useEffect } from 'react'
 import './App.css'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import Header from './page/header/Header.jsx'
 import Home from './page/home/Home.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { checkAuth } from './redux/login/registr.slice'
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(checkAuth())
+    }
+  }, [dispatch])
   return (
     <div className="App">
       <BrowserRouter>

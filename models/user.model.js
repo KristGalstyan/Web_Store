@@ -17,6 +17,9 @@ const UserModel = mongoose.Schema(
     },
     activationLink: {
       type: String
+    },
+    userName: {
+      type: String
     }
   },
   { timestamps: true }

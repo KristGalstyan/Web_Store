@@ -7,6 +7,7 @@ import {
   refreshService
 } from '../services/user.service.js'
 import { removeToken } from '../services/tokens.js'
+import { burgers, drinks, sides } from '../data/products.js'
 
 export async function register(req, res, next) {
   try {
@@ -14,9 +15,9 @@ export async function register(req, res, next) {
     if (!errors.isEmpty()) {
       return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
     }
-    const { email, password, name } = req.body
+    const { email, password, userName } = req.body
 
-    const userData = await registrationService(email, password, name)
+    const userData = await registrationService(email, password, userName)
 
     res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000
@@ -45,6 +46,23 @@ export async function login(req, res, next) {
     })
 
     return res.json(userData)
+  } catch (e) {
+    next(e)
+  }
+}
+export async function products(req, res, next) {
+  try {
+    const { type } = req.params
+
+    if (type === 'burger') {
+      res.json(burgers)
+    } else if (type === 'sides') {
+      res.json(sides)
+    } else if (type === 'drinks') {
+      res.json(drinks)
+    } else {
+      res.status(400).json({ message: 'Не удалось получить прадукты' })
+    }
   } catch (e) {
     next(e)
   }

@@ -2,17 +2,36 @@ import jwt from 'jsonwebtoken'
 import TokenModel from '../models/token.model.js'
 
 export function generateTokens(payload) {
-  const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN, {
-    expiresIn: '15m'
+  const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
+    expiresIn: '15s'
   })
 
-  const refreshToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN, {
+  const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
     expiresIn: '30d'
   })
 
   return {
     accessToken,
     refreshToken
+  }
+}
+
+export function validateAccessToken(token) {
+  try {
+    const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET)
+    return userData
+  } catch (e) {
+    return null
+  }
+}
+
+export function validateRefreshToken(token) {
+  try {
+    const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+    return userData
+  } catch (e) {
+    console.log(e)
+    return null
   }
 }
 
@@ -31,13 +50,7 @@ export async function removeToken(refreshToken) {
   return tokenData
 }
 
-export async function validateRefreshToken(token) {
-  try {
-    const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
-    return userData
-  } catch (e) {
-    return null
-  }
+export async function findToken(refreshToken) {
+  const tokenData = await TokenModel.findOne({ refreshToken })
+  return tokenData
 }
-
-export async function findToken(token) {}

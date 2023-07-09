@@ -12,12 +12,22 @@ $api.interceptors.request.use((config) => {
   return config
 })
 
-// $api.interceptors.response.use((config) => {
-//     return config
-// },(error) => {
-//     if (error.response.status == 401) {
-
-//     }
-// })
+$api.interceptors.response.use(
+  (config) => {
+    return config
+  },
+  async (error) => {
+    const originalRequest = error.config
+    if (error.response.status === 401) {
+      try {
+        const response = await $api.get('/refresh', { withCredentials: true })
+        localStorage.setItem('token', response.data.accessToken)
+        return $api.request(originalRequest)
+      } catch (e) {
+        console.log('НЕ АВТОРИЗОВАН')
+      }
+    }
+  }
+)
 
 export default $api

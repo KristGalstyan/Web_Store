@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { SignBtn } from '../menu/menu'
 import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchLogout } from '../../redux/login/registr.slice'
 
 function Header() {
+  const dispatch = useDispatch()
+  const { data } = useSelector((s) => s.registr)
+
+  if (localStorage.getItem('token')) {
+  }
+
+  console.log(data)
+
   return (
     <div className="d-flex flex-wrap justify-content-between align-items-center  mb-5">
       <NavLink to="/" style={{ textDecoration: 'none' }}>
@@ -18,7 +28,7 @@ function Header() {
         <p className="mx-2">Company</p>
         <p className="mx-2">FAQ</p>
         <p>Contact</p>
-        {localStorage.getItem('token') ? (
+        {data ? (
           <>
             <div
               className="d-flex flex-wrap justify-content-center align-items-center rounded bg-primary"
@@ -49,11 +59,9 @@ function Header() {
                 alt="Basket"
               />
             </div>
-            <NavLink to="logout">
-              <SignBtn>
-                <span>Logout</span>
-              </SignBtn>
-            </NavLink>
+            <SignBtn onClick={() => dispatch(fetchLogout())}>
+              <span>Logout</span>
+            </SignBtn>
           </>
         ) : (
           <>

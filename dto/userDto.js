@@ -4,7 +4,7 @@ class UserDto {
   isActivated
   name
   constructor(model) {
-    this.name = model.name
+    this.name = model.userName
     this.email = model.email
     this.id = model._id
     this.isActivated = model.isActivated
