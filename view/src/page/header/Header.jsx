@@ -9,11 +9,6 @@ function Header() {
   const dispatch = useDispatch()
   const { data } = useSelector((s) => s.registr)
 
-  if (localStorage.getItem('token')) {
-  }
-
-  console.log(data)
-
   return (
     <div className="d-flex flex-wrap justify-content-between align-items-center  mb-5">
       <NavLink to="/" style={{ textDecoration: 'none' }}>

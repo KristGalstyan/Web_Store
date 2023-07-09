@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { reducer as RegistReducer } from './login/registr.slice'
+import { reducer as ProductReducer } from './product/products.slice'
 
 const rootReducer = combineReducers({
-  registr: RegistReducer
+  registr: RegistReducer,
+  product: ProductReducer
 })
 
 const store = configureStore({

@@ -1,4 +1,4 @@
-import ApiError from './ApiError.js'
+import ApiError from '../ErrorValidation/ApiError.js'
 
 export function errorMiddleware(err, req, res, next) {
   if (err instanceof ApiError) {

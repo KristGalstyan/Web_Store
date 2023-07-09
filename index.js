@@ -6,7 +6,7 @@ import 'dotenv/config'
 import cors from 'cors'
 
 import mongoose from 'mongoose'
-import { errorMiddleware } from './ErrorValidation/errormiddleware.js'
+import { errorMiddleware } from './middleware/errormiddleware.js'
 
 const app = express()
 app.use(express.json())

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const MenuWrapper = styled.div`
+  width: 100%;
+  min-height: 500px;
   background: #f5fbfc;
 `
 export const SignBtn = styled.button`
@@ -63,20 +65,15 @@ export const MenuBtnBlock = styled.div`
 export const MenuBtn = styled.button`
   display: inline-block;
   padding: 0.75rem 1.25rem;
-  background: #fff;
+  background: ${(props) => props.background || '#fff'};
   text-transform: uppercase;
   font-size: 1rem;
-  color: #000;
+  color: ${(props) => props.color || '#000'};
   letter-spacing: 0.15rem;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
-
-  &:hover {
-    background: #000;
-    color: #fff;
-  }
 `
 
 export const MenuItem = styled.div`
@@ -108,7 +105,8 @@ export const ProductImg = styled.div`
   min-height: 130px;
   margin-right: 35px;
   img {
-    min-height: 100%;
+    height: 100px;
+    object-fit: cover;
   }
 `
 

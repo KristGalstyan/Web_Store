@@ -54,7 +54,7 @@ export async function products(req, res, next) {
   try {
     const { type } = req.params
 
-    if (type === 'burger') {
+    if (type === 'burgers') {
       res.json(burgers)
     } else if (type === 'sides') {
       res.json(sides)

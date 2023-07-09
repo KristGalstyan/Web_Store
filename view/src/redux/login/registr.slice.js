@@ -24,6 +24,7 @@ export const fetchLogout = createAsyncThunk(
 export const checkAuth = createAsyncThunk('fetch/checkAuth', async () => {
   return $api.get('/refresh', { withCredentials: true })
 })
+
 const initialState = {
   data: null,
   loading: null,

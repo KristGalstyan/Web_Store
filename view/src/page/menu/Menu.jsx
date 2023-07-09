@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   BuyProduct,
   FullMenu,
@@ -19,9 +20,18 @@ import {
   ProductTitle,
   ProductTotal
 } from './menu'
+import { fetchProduct } from '../../redux/product/products.slice'
 
 const Menu = () => {
+  const btnsProducts = ['burgers', 'sides', 'drinks']
+
+  const dispatch = useDispatch()
   const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    // dispatch(fetchProduct(btnsProducts[0]))
+  }, [])
+  const { products, loading } = useSelector((s) => s.product)
 
   return (
     <MenuWrapper>
@@ -33,17 +43,35 @@ const Menu = () => {
           order. Fast and fresh food.
         </MenuFirstsubTitle>
       </MenuFirstBlock>
+
       <MenuSecondBlock>
-        {product.map((elem, index) => {
-          return (
-            <>
-              <MenuBtnBlock key={elem.id}>
-                <MenuBtn>Burgers</MenuBtn>
-                <MenuBtn>Sides</MenuBtn>
-                <MenuBtn>Drinks</MenuBtn>
-              </MenuBtnBlock>
-              <MenuItem>
-                <MenuItemProduct>
+        <MenuBtnBlock>
+          {btnsProducts.map((elm, index) => {
+            return index === active ? (
+              <MenuBtn key={index} color="white" background="black">
+                {elm}
+              </MenuBtn>
+            ) : (
+              <MenuBtn
+                key={index}
+                onClick={() => {
+                  dispatch(fetchProduct(elm))
+                  setActive(index)
+                }}
+                color="black"
+              >
+                {elm}
+              </MenuBtn>
+            )
+          })}
+        </MenuBtnBlock>
+        <MenuItem>
+          {loading ? (
+            <MenuFirstTitle>Loading...</MenuFirstTitle>
+          ) : (
+            products?.data.map((elem, index) => {
+              return (
+                <MenuItemProduct key={elem.id}>
                   <ProductImg>
                     <img src={elem.url} alt={elem.title} />
                   </ProductImg>
@@ -59,10 +87,10 @@ const Menu = () => {
                     </BuyProduct>
                   </ProductInfo>
                 </MenuItemProduct>
-              </MenuItem>
-            </>
-          )
-        })}
+              )
+            })
+          )}
+        </MenuItem>
       </MenuSecondBlock>
       <FullMenu>
         <MenuBtn>See Full Menu</MenuBtn>
