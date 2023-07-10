@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import {
   BuyProduct,
   FullMenu,
@@ -21,6 +22,7 @@ import {
   ProductTotal
 } from './menu'
 import { fetchProduct } from '../../redux/product/products.slice'
+import { fetchFullMenu } from '../../redux/product/fullMenu.slice'
 
 const Menu = () => {
   const btnsProducts = ['burgers', 'sides', 'drinks']
@@ -29,7 +31,7 @@ const Menu = () => {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    // dispatch(fetchProduct(btnsProducts[0]))
+    dispatch(fetchProduct(btnsProducts[0]))
   }, [])
   const { products, loading } = useSelector((s) => s.product)
 
@@ -78,7 +80,7 @@ const Menu = () => {
                   <ProductInfo>
                     <ProductInfoItem>
                       <ProductTitle>{elem.title}</ProductTitle>
-                      <ProductParagraph>$ 9.20$</ProductParagraph>
+                      <ProductParagraph>{elem.price}</ProductParagraph>
                     </ProductInfoItem>
                     <ProductParagraph>{elem.text}</ProductParagraph>
                     <BuyProduct>
@@ -92,9 +94,13 @@ const Menu = () => {
           )}
         </MenuItem>
       </MenuSecondBlock>
-      <FullMenu>
-        <MenuBtn>See Full Menu</MenuBtn>
-      </FullMenu>
+      <NavLink to="/fullMenu">
+        <FullMenu>
+          <MenuBtn onClick={() => dispatch(fetchFullMenu())}>
+            See Full Menu
+          </MenuBtn>
+        </FullMenu>
+      </NavLink>
     </MenuWrapper>
   )
 }

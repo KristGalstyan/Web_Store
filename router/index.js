@@ -11,7 +11,6 @@ import {
   refresh,
   products
 } from '../UserController/UserController.js'
-import { AuthMiddleware } from '../middleware/auth-middleware.js'
 
 const router = new Router()
 
@@ -19,7 +18,7 @@ router.post('/registration', registerValidator, register)
 router.post('/login', loginValidator, login)
 router.post('/logout', logout)
 
-router.get('/products/:type', AuthMiddleware, products)
+router.get('/products/:type', products)
 router.get('/activate/:link', activate)
 router.get('/refresh', refresh)
 

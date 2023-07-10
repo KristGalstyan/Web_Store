@@ -7,7 +7,7 @@ import {
   refreshService
 } from '../services/user.service.js'
 import { removeToken } from '../services/tokens.js'
-import { burgers, drinks, sides } from '../data/products.js'
+import { burgers, drinks, fullMenu, sides } from '../data/products.js'
 
 export async function register(req, res, next) {
   try {
@@ -60,6 +60,8 @@ export async function products(req, res, next) {
       res.json(sides)
     } else if (type === 'drinks') {
       res.json(drinks)
+    } else if (type === 'fullMenu') {
+      res.json(fullMenu)
     } else {
       res.status(400).json({ message: 'Не удалось получить прадукты' })
     }

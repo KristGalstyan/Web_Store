@@ -7,6 +7,7 @@ import Home from './page/home/Home.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { checkAuth } from './redux/login/registr.slice'
+import FullMenu from './components/FullMenu'
 
 function App() {
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/fullMenu" element={<FullMenu />} />
         </Routes>
       </BrowserRouter>
     </div>
