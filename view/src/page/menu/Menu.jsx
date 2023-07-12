@@ -22,6 +22,7 @@ import {
   ProductTotal
 } from './menu'
 import { fetchProduct } from '../../redux/product/products.slice'
+import { actions } from '../../redux/product/basket.slice'
 import { fetchFullMenu } from '../../redux/product/fullMenu.slice'
 
 const Menu = () => {
@@ -71,7 +72,8 @@ const Menu = () => {
           {loading ? (
             <MenuFirstTitle>Loading...</MenuFirstTitle>
           ) : (
-            products?.data.map((elem, index) => {
+            products?.data.map((elem) => {
+              console.log(elem.quantity)
               return (
                 <MenuItemProduct key={elem.id}>
                   <ProductImg>
@@ -80,12 +82,18 @@ const Menu = () => {
                   <ProductInfo>
                     <ProductInfoItem>
                       <ProductTitle>{elem.title}</ProductTitle>
-                      <ProductParagraph>{elem.price}</ProductParagraph>
+                      <ProductParagraph>{elem.price}$</ProductParagraph>
                     </ProductInfoItem>
                     <ProductParagraph>{elem.text}</ProductParagraph>
                     <BuyProduct>
-                      <ProductTotal>1</ProductTotal>
-                      <MenuBtn>Add to cart</MenuBtn>
+                      <ProductTotal>0</ProductTotal>
+                      <MenuBtn
+                        onClick={() => {
+                          dispatch(actions.pushCardToBasket(elem))
+                        }}
+                      >
+                        Add to cart
+                      </MenuBtn>
                     </BuyProduct>
                   </ProductInfo>
                 </MenuItemProduct>

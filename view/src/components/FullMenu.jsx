@@ -12,6 +12,7 @@ import {
 } from '../page/menu/menu'
 import { useEffect } from 'react'
 import { fetchFullMenu } from '../redux/product/fullMenu.slice'
+import { actions } from '../redux/product/basket.slice'
 
 function FullMenu() {
   const dispatch = useDispatch()
@@ -42,7 +43,11 @@ function FullMenu() {
                 <ProductParagraph>{elem.text}</ProductParagraph>
                 <BuyProduct>
                   <ProductTotal>1</ProductTotal>
-                  <MenuBtn>Add to cart</MenuBtn>
+                  <MenuBtn
+                    onClick={() => dispatch(actions.pushCardToBasket(elem))}
+                  >
+                    Add to cart
+                  </MenuBtn>
                 </BuyProduct>
               </ProductInfo>
             </MenuItemProduct>

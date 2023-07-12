@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { SignBtn } from '../menu/menu'
 import { NavLink } from 'react-router-dom'
@@ -7,10 +7,10 @@ import { fetchLogout } from '../../redux/login/registr.slice'
 
 function Header() {
   const dispatch = useDispatch()
-  const { data } = useSelector((s) => s.registr)
+  const data = useSelector((state) => state)
 
   return (
-    <div className="d-flex flex-wrap justify-content-between align-items-center  mb-5">
+    <div className="d-flex flex-wrap justify-content-between  align-items-center  mb-5">
       <NavLink to="/" style={{ textDecoration: 'none' }}>
         <div className="img-fluid d-flex flex-wrap justify-content-center align-items-center">
           <img src="img/icons8-store-66.png" alt="Shop icon" />
@@ -23,37 +23,40 @@ function Header() {
         <p className="mx-2">Company</p>
         <p className="mx-2">FAQ</p>
         <p>Contact</p>
-        {data ? (
+        {data.registr.data ? (
           <>
-            <div
-              className="d-flex flex-wrap justify-content-center align-items-center rounded bg-primary"
-              style={{
-                width: '40px',
-                height: '40px',
-                padding: '5px',
-                position: 'relative'
-              }}
-            >
+            <NavLink to="/basket">
               <div
-                className="rounded-circle bg-light "
+                className="d-flex flex-wrap justify-content-center align-items-center rounded bg-primary"
                 style={{
-                  width: '30px',
-                  height: '30px',
-                  position: 'absolute',
-                  bottom: '15px',
-                  left: '30px',
-                  border: '3px solid white'
+                  width: '40px',
+                  height: '40px',
+                  padding: '5px',
+                  position: 'relative',
+                  cursor: 'pointer'
                 }}
               >
-                <strong>0</strong>
-              </div>
+                <div
+                  className="rounded-circle bg-light "
+                  style={{
+                    width: '30px',
+                    height: '30px',
+                    position: 'absolute',
+                    bottom: '15px',
+                    left: '30px',
+                    border: '3px solid white'
+                  }}
+                >
+                  <strong>{data.basket.data.length}</strong>
+                </div>
 
-              <img
-                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
-                src="img/icons8-shop-48.png"
-                alt="Basket"
-              />
-            </div>
+                <img
+                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                  src="img/icons8-shop-48.png"
+                  alt="Basket"
+                />
+              </div>
+            </NavLink>
             <SignBtn onClick={() => dispatch(fetchLogout())}>
               <span>Logout</span>
             </SignBtn>

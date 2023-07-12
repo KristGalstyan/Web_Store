@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { checkAuth } from './redux/login/registr.slice'
 import FullMenu from './components/FullMenu'
+import Basket from './components/Basket'
 
 function App() {
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/fullMenu" element={<FullMenu />} />
+          <Route path="/basket" element={<Basket />} />
         </Routes>
       </BrowserRouter>
     </div>
