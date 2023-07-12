@@ -18,8 +18,7 @@ import {
   ProductInfo,
   ProductInfoItem,
   ProductParagraph,
-  ProductTitle,
-  ProductTotal
+  ProductTitle
 } from './menu'
 import { fetchProduct } from '../../redux/product/products.slice'
 import { actions } from '../../redux/product/basket.slice'
@@ -86,7 +85,6 @@ const Menu = () => {
                     </ProductInfoItem>
                     <ProductParagraph>{elem.text}</ProductParagraph>
                     <BuyProduct>
-                      <ProductTotal>0</ProductTotal>
                       <MenuBtn
                         onClick={() => {
                           dispatch(actions.pushCardToBasket(elem))

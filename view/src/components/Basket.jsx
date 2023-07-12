@@ -1,12 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import TotalPrice from './TotalPrice'
-import { actions } from '../redux/product/basket.slice'
+import useAction from '../hook/useAction'
 
 function Basket() {
   const { basket } = useSelector((state) => state)
-  const dispatch = useDispatch()
+  const { deleteFromBasket } = useAction()
 
   return (
     <div>
@@ -30,7 +30,7 @@ function Basket() {
                 </strong>
                 <button
                   type="button"
-                  onClick={() => dispatch(actions.deleteFromBasket(elm))}
+                  onClick={() => deleteFromBasket(elm)}
                   class="btn btn-dark h-25"
                 >
                   Delete

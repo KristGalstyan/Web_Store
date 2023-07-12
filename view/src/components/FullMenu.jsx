@@ -7,15 +7,16 @@ import {
   ProductInfo,
   ProductInfoItem,
   ProductParagraph,
-  ProductTitle,
-  ProductTotal
+  ProductTitle
 } from '../page/menu/menu'
 import { useEffect } from 'react'
 import { fetchFullMenu } from '../redux/product/fullMenu.slice'
-import { actions } from '../redux/product/basket.slice'
+import useAction from '../hook/useAction'
 
 function FullMenu() {
+  const { pushCardToBasket } = useAction()
   const dispatch = useDispatch()
+
   const { data, loading } = useSelector((state) => state.fullMenu)
 
   useEffect(() => {
@@ -38,14 +39,11 @@ function FullMenu() {
               <ProductInfo>
                 <ProductInfoItem>
                   <ProductTitle>{elem.title}</ProductTitle>
-                  <ProductParagraph>{elem.price}</ProductParagraph>
+                  <ProductParagraph>{elem.price}$</ProductParagraph>
                 </ProductInfoItem>
                 <ProductParagraph>{elem.text}</ProductParagraph>
                 <BuyProduct>
-                  <ProductTotal>1</ProductTotal>
-                  <MenuBtn
-                    onClick={() => dispatch(actions.pushCardToBasket(elem))}
-                  >
+                  <MenuBtn onClick={() => pushCardToBasket(elem)}>
                     Add to cart
                   </MenuBtn>
                 </BuyProduct>

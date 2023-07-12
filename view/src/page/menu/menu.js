@@ -139,17 +139,6 @@ export const BuyProduct = styled.div`
   width: 100%;
 `
 
-export const ProductTotal = styled.div`
-  width: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  border: 3px solid black;
-  font-weight: 600;
-`
-
 export const ProductParagraph = styled.p`
   display: flex;
   flex-wrap: wrap;
