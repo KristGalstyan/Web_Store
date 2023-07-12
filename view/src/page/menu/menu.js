@@ -74,6 +74,10 @@ export const MenuBtn = styled.button`
   position: relative;
   overflow: hidden;
   z-index: 1;
+  &:hover {
+    color: white;
+    background: black;
+  }
 `
 
 export const MenuItem = styled.div`
