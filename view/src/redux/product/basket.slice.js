@@ -20,6 +20,19 @@ const basketSlice = createSlice({
       } else {
         state.data.push(action.payload)
       }
+    },
+
+    deleteFromBasket: (state, action) => {
+      const isExist = state.data.some((elm) => elm.id === action.payload.id)
+
+      if (isExist) {
+        const index = state.data.findIndex(
+          (item) => item.id === action.payload.id
+        )
+        state.data.splice(index, 1)
+      } else {
+        return state
+      }
     }
   }
 })

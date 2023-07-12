@@ -1,10 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import TotalPrice from './TotalPrice'
+import { actions } from '../redux/product/basket.slice'
 
 function Basket() {
   const { basket } = useSelector((state) => state)
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -21,11 +23,18 @@ function Basket() {
                   {elm.text}
                 </p>
               </div>
-              <div>
+              <div className="d-flex flex-column align-items-center">
                 <h5>Quantity - {elm.quantity}</h5>
                 <strong style={{ fontSize: '30px' }}>
                   {elm.price * elm.quantity}$
                 </strong>
+                <button
+                  type="button"
+                  onClick={() => dispatch(actions.deleteFromBasket(elm))}
+                  class="btn btn-dark h-25"
+                >
+                  Delete
+                </button>
               </div>
             </div>
             <div>
